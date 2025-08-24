@@ -214,19 +214,19 @@
         }
 
         function ensureCollaboratorsBar(){
-          // Find the hero container that holds the hero image
           var heroImg = document.querySelector('img[alt="Cybersecurity Professional"]');
           if (!heroImg) return;
-          var container = heroImg.closest('div.relative.w-full');
-          if (!container) {
-            // fallback: take the immediate wrapper with the gradient bg
-            container = heroImg.parentElement;
-          }
-          if (!container || container.querySelector('[data-collaborators-strip]')) return;
+          // Prefer the large rounded hero container
+          var container = heroImg.closest('div.relative.w-full') || heroImg.parentElement;
+          if (!container) return;
+
+          // If already added, skip
+          if (container.parentElement && container.parentElement.querySelector('[data-collaborators-strip]')) return;
 
           var bar = document.createElement('div');
           bar.setAttribute('data-collaborators-strip','');
-          bar.className = 'absolute bottom-4 left-4 bg-slate-900/60 text-slate-200 text-xs px-2 py-1 rounded flex items-center space-x-2';
+          // Visible block below the hero
+          bar.className = 'mt-2 flex items-center space-x-2 text-xs text-slate-400';
 
           var label = document.createElement('span');
           label.textContent = 'Collaboratored with:';
@@ -238,11 +238,12 @@
             bar.appendChild(icon);
           });
 
-          // Ensure container is relatively positioned for absolute child
-          if (!/\brelative\b/.test(container.className)) {
-            container.className += ' relative';
+          // Insert after the hero container so it always shows
+          if (container.parentElement) {
+            container.parentElement.insertBefore(bar, container.nextSibling);
+          } else {
+            container.appendChild(bar);
           }
-          container.appendChild(bar);
         }
 
         // Initial and keep trying on re-renders
