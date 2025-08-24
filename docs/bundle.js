@@ -2760,6 +2760,9 @@ const Footer = () => {
   }, {
     label: 'Website',
     href: _mock__WEBPACK_IMPORTED_MODULE_1__.personalInfo.website
+  }, {
+    label: 'Society Linktree',
+    href: 'https://linktr.ee/exetercybersecuritysociety'
   }];
   const scrollToSection = href => {
     const element = document.querySelector(href);
@@ -5928,8 +5931,8 @@ const personalInfo = {
   email: "mo.ali@example.com",
   phone: "+44 123 456 7890",
   location: "Exeter, England, United Kingdom",
-  linkedin: "https://linkedin.com/in/mohd-mohtesham-ali",
-  github: "https://github.com/mohteshamali",
+  linkedin: "https://www.linkedin.com/in/-mohtesham/",
+  github: "https://github.com/Veltabex/",
   website: "https://mohteshamali.dev"
 };
 const aboutMe = {
@@ -6013,14 +6016,32 @@ const experience = [{
   skills: ["Community Engagement", "Client Relations", "Leadership", "Event Management"]
 }, {
   id: 3,
-  title: "Healthcare Assistant",
-  company: "Ocean Healthcare (UK)",
-  type: "Part-time",
-  duration: "Nov 2024 - Present",
-  location: "Exeter, England, United Kingdom",
-  description: "Providing compassionate care and support to young adults in sensitive environments while pursuing academic goals.",
-  achievements: ["Assist young adults with daily activities", "Provide emotional support and personal assistance", "Ensure overall well-being in sensitive environments", "Demonstrate adaptability and time management"],
-  skills: ["Adaptability", "Time Management", "Empathy", "Communication"]
+  title: "Mobility Intern",
+  company: "EBLA Computer Consultancy",
+  type: "Internship",
+  duration: "May 2022 - May 2022",
+  location: "Doha, Qatar",
+  description: "Managed app licenses & certifications to meet Apple/Google guidelines and G2G requirements for ministers.",
+  achievements: [
+    "Managed app licenses and certifications across Apple App Store and Google Play to ensure compliance with platform guidelines and Qatari G2G requirements",
+    "Leveraged GRC practices to monitor renewals, mitigate risks, and integrate security into mobile development lifecycle"
+  ],
+  skills: ["GRC", "Mobile Security", "Compliance", "Risk Management", "App Store/Play Console", "Certificates and Provisioning"]
+}, {
+  id: 4,
+  title: "Founder & Lead Developer",
+  company: "Xycodia Minecraft Network",
+  type: "Founder",
+  duration: "Aug 2021 - Dec 2022",
+  location: "Online Community, Qatar",
+  description: "Configured and secured a game server with Cloudflare, SSL/TLS and firewall; optimized performance and retention with advanced Java troubleshooting and monitoring.",
+  achievements: [
+    "Set up custom domain with Cloudflare, enforced SSL/TLS and firewall protection",
+    "Optimized server performance by ~80% via advanced Java troubleshooting",
+    "Increased monthly player retention by 5–10% and revenue by 5%",
+    "Implemented robust security measures and proactive monitoring"
+  ],
+  skills: ["Cloudflare", "SSL/TLS", "Firewall", "Java", "Performance Optimization", "Monitoring", "Security Hardening"]
 }];
 const speakingEngagements = [{
   id: 1,
