@@ -192,7 +192,7 @@
       });
     </script>
     <script>
-      // Enhanced collaborators strip: bigger title, larger logos, include all known files
+      // Enhanced collaborators strip: centered under hero, bigger logos, captions from file name
       window.addEventListener('DOMContentLoaded', function(){
         var fontFamily = "'Poppins', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial";
         var collaboratorFiles = [
@@ -204,15 +204,13 @@
           'SW_CSC_800x200-copy-3.jpg',
           'Uni_Landscape_Pos_Lrg-e1662406285626.png'
         ];
-        var titles = {
-          '19308506a9d5fb8af5306ea4fe2bca69.jpeg': 'Hack South West',
-          '9Enbmx2SSWNFtJbpNVSoMV6hof5xMDX00pilgGcY.png': 'Exeter Computer Science Society',
-          'CIISec.png': 'CIISec',
-          'GlitchLogo.png': 'Glitch',
-          'swgfl-strap.png': 'SWGfL',
-          'SW_CSC_800x200-copy-3.jpg': 'SW CSC',
-          'Uni_Landscape_Pos_Lrg-e1662406285626.png': 'University of Exeter'
-        };
+
+        function displayName(file){
+          try {
+            var name = file.split('/').pop().replace(/\.[^/.]+$/, '');
+            return name.replace(/[_-]+/g, ' ').trim();
+          } catch (_) { return file; }
+        }
 
         function ensureCollaboratorsBar(){
           var heroImg = document.querySelector('img[alt="Cybersecurity Professional"]');
@@ -223,43 +221,64 @@
 
           var bar = document.createElement('div');
           bar.setAttribute('data-collaborators-strip','');
-          bar.style.marginTop = '8px';
+          bar.style.marginTop = '12px';
           bar.style.display = 'flex';
-          bar.style.alignItems = 'center';
           bar.style.flexWrap = 'wrap';
-          bar.style.gap = '10px 16px';
-          bar.style.color = 'rgb(148 163 184)';
-          bar.style.fontSize = '13px';
+          bar.style.alignItems = 'flex-start';
+          bar.style.justifyContent = 'center';
+          bar.style.gap = '14px 24px';
+          bar.style.width = '100%';
+          bar.style.textAlign = 'center';
 
-          var label = document.createElement('span');
+          var label = document.createElement('div');
           label.textContent = 'Collaboratored with:';
           label.style.fontFamily = fontFamily;
           label.style.fontWeight = '700';
           label.style.fontSize = '18px';
           label.style.color = 'rgb(226 232 240)';
+          label.style.width = '100%';
+          label.style.marginBottom = '6px';
           bar.appendChild(label);
 
           collaboratorFiles.forEach(function(file){
-            var wrap = document.createElement('span');
-            wrap.style.display = 'inline-flex';
-            wrap.style.alignItems = 'center';
-            wrap.style.justifyContent = 'center';
-            wrap.style.width = '36px';
-            wrap.style.height = '36px';
-            wrap.style.borderRadius = '8px';
-            wrap.style.background = 'white';
-            wrap.style.overflow = 'hidden';
+            var cell = document.createElement('div');
+            cell.style.display = 'flex';
+            cell.style.flexDirection = 'column';
+            cell.style.alignItems = 'center';
+            cell.style.justifyContent = 'flex-start';
+            cell.style.gap = '6px';
+
+            var box = document.createElement('div');
+            box.style.display = 'flex';
+            box.style.alignItems = 'center';
+            box.style.justifyContent = 'center';
+            box.style.width = '56px';
+            box.style.height = '56px';
+            box.style.borderRadius = '10px';
+            box.style.background = 'white';
+            box.style.overflow = 'hidden';
 
             var img = document.createElement('img');
             img.src = 'images/collaborators/' + file;
-            img.alt = titles[file] || file;
-            img.title = titles[file] || file;
-            img.style.maxWidth = '100%';
-            img.style.maxHeight = '100%';
+            img.alt = displayName(file);
+            img.title = displayName(file);
+            img.style.maxWidth = '90%';
+            img.style.maxHeight = '90%';
             img.style.objectFit = 'contain';
+            box.appendChild(img);
+            cell.appendChild(box);
 
-            wrap.appendChild(img);
-            bar.appendChild(wrap);
+            var caption = document.createElement('span');
+            caption.textContent = displayName(file);
+            caption.style.fontFamily = fontFamily;
+            caption.style.fontSize = '12px';
+            caption.style.color = 'rgb(203 213 225)';
+            caption.style.lineHeight = '1.1';
+            caption.style.maxWidth = '90px';
+            caption.style.wordBreak = 'break-word';
+            cell.appendChild(caption);
+
+            bar.appendChild(cell);
           });
 
           if (container.parentElement) {
