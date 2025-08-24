@@ -122,15 +122,15 @@
           try {
             var desktopNav = document.querySelector('header nav');
             if (desktopNav && !desktopNav.querySelector('[data-cyber-bandit]')){
-              var disabledBtn = document.createElement('button');
-              disabledBtn.setAttribute('data-cyber-bandit','');
-              disabledBtn.disabled = true;
-              disabledBtn.textContent = 'Cyber Bandit page redirect';
-              disabledBtn.className = 'text-slate-500 cursor-not-allowed transition-colors duration-200 font-medium';
+              var link = document.createElement('a');
+              link.setAttribute('data-cyber-bandit','');
+              link.href = 'cyber-help.html';
+              link.textContent = 'Cyber Bandit';
+              link.className = 'text-slate-300 hover:text-white font-medium';
               if (desktopNav.lastElementChild) {
-                desktopNav.insertBefore(disabledBtn, desktopNav.lastElementChild);
+                desktopNav.insertBefore(link, desktopNav.lastElementChild);
               } else {
-                desktopNav.appendChild(disabledBtn);
+                desktopNav.appendChild(link);
               }
             }
           } catch (_) {}
@@ -149,11 +149,11 @@
             // Mobile menu: insert disabled button and wire Resume when menu appears
             document.querySelectorAll('div.px-2.pt-2.pb-3.space-y-1').forEach(function(menu){
               if (!menu.querySelector('[data-cyber-bandit]')){
-                var mb = document.createElement('button');
+                var mb = document.createElement('a');
                 mb.setAttribute('data-cyber-bandit','');
-                mb.disabled = true;
-                mb.textContent = 'Cyber Bandit page redirect';
-                mb.className = 'block w-full text-left px-3 py-2 text-slate-500 cursor-not-allowed rounded-md';
+                mb.href = 'cyber-help.html';
+                mb.textContent = 'Cyber Bandit';
+                mb.className = 'block w-full text-left px-3 py-2 text-slate-300 hover:text-white rounded-md';
                 var resumeContainer = menu.querySelector('div.px-3.py-2');
                 if (resumeContainer){
                   menu.insertBefore(mb, resumeContainer);
