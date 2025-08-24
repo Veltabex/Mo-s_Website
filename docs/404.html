@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Redirecting...</title>
+    <script type="text/javascript">
+        // GitHub Pages SPA redirect
+        // This script takes the current URL and redirects to index.html
+        // with the path as a query parameter
+        var pathSegments = location.pathname.split('/').filter(function(segment) {
+            return segment.length > 0;
+        });
+        
+        // Remove the repo name from the path
+        if (pathSegments[0] === 'Mo-s_Website') {
+            pathSegments.shift();
+        }
+        
+        var redirectPath = pathSegments.join('/');
+        
+        location.replace(
+            location.origin + '/Mo-s_Website/' + '?p=/' + redirectPath +
+            (location.search ? '&' + location.search.slice(1) : '') +
+            location.hash
+        );
+    </script>
+</head>
+<body>
+    <p>Redirecting...</p>
+</body>
+</html>
