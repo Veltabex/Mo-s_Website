@@ -113,8 +113,8 @@ _c = Portfolio;
 function App() {
   return /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxDEV)("div", {
     className: "App",
-    children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxDEV)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.BrowserRouter, {
-      children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxDEV)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Routes, {
+    children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxDEV)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.BrowserRouter, { basename: "/Mo-s_Website/",
+          children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxDEV)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Routes, {
         children: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxDEV)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
           path: "/",
           element: /*#__PURE__*/(0,react_jsx_dev_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxDEV)(Portfolio, {}, void 0, false, {
