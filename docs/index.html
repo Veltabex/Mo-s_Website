@@ -87,21 +87,6 @@
       window.addEventListener('DOMContentLoaded', function(){
         var cvLink = 'https://www.dropbox.com/scl/fi/fn19drh0oans7t4aflt1n/CV.pdf?rlkey=8sm4yy6hq3v8zya3d8djb7agh&st=uc9887nu&dl=0';
 
-        // 1) Footer: append small note under "Open to opportunities"
-        try {
-          var availability = Array.from(document.querySelectorAll('div')).find(function(d){
-            return d.textContent && d.textContent.trim() === 'Open to opportunities';
-          });
-          if (availability && availability.parentElement && !availability.parentElement.querySelector('[data-work-in-progress]')) {
-            var note = document.createElement('div');
-            note.setAttribute('data-work-in-progress','');
-            note.textContent = 'Website work in progress';
-            note.className = 'text-xs text-slate-400 mt-1';
-            availability.parentElement.appendChild(note);
-          }
-        } catch (e) { /* noop */ }
-
-        // Helper: attach CV link to elements labeled "Resume"
         function wireResume(container){
           (container || document).querySelectorAll('button, a').forEach(function(el){
             if (el.textContent && el.textContent.trim() === 'Resume' && !el.hasAttribute('data-cv-wired')){
@@ -114,24 +99,51 @@
           });
         }
 
-        // 2) Desktop nav: add disabled Cyber Bandit button and wire Resume
-        try {
-          var desktopNav = document.querySelector('header nav');
-          if (desktopNav && !desktopNav.querySelector('[data-cyber-bandit]')){
-            var disabledBtn = document.createElement('button');
-            disabledBtn.setAttribute('data-cyber-bandit','');
-            disabledBtn.disabled = true;
-            disabledBtn.textContent = 'Cyber Bandit page redirect';
-            disabledBtn.className = 'text-slate-500 cursor-not-allowed transition-colors duration-200 font-medium';
-            // Insert before the last child (likely the Resume button)
-            desktopNav.insertBefore(disabledBtn, desktopNav.lastElementChild);
-          }
-          wireResume(desktopNav);
-        } catch (e) { /* noop */ }
+        function ensureFooterNote(){
+          try {
+            var availability = Array.from(document.querySelectorAll('div')).find(function(d){
+              var t = d.textContent ? d.textContent.trim() : '';
+              return t.includes('Open to opportunities');
+            });
+            if (availability && availability.parentElement && !availability.parentElement.querySelector('[data-work-in-progress]')) {
+              var note = document.createElement('div');
+              note.setAttribute('data-work-in-progress','');
+              note.textContent = 'Website work in progress';
+              note.className = 'text-xs text-slate-400 mt-1';
+              availability.parentElement.appendChild(note);
+            }
+          } catch (_) {}
+        }
 
-        // 3) Mobile menu: observe for menu open, then insert disabled button and wire Resume
+        function ensureDesktopNavButton(){
+          try {
+            var desktopNav = document.querySelector('header nav');
+            if (desktopNav && !desktopNav.querySelector('[data-cyber-bandit]')){
+              var disabledBtn = document.createElement('button');
+              disabledBtn.setAttribute('data-cyber-bandit','');
+              disabledBtn.disabled = true;
+              disabledBtn.textContent = 'Cyber Bandit page redirect';
+              disabledBtn.className = 'text-slate-500 cursor-not-allowed transition-colors duration-200 font-medium';
+              if (desktopNav.lastElementChild) {
+                desktopNav.insertBefore(disabledBtn, desktopNav.lastElementChild);
+              } else {
+                desktopNav.appendChild(disabledBtn);
+              }
+            }
+          } catch (_) {}
+        }
+
+        // Initial attempt (in case content mounts quickly)
+        ensureFooterNote();
+        ensureDesktopNavButton();
+        wireResume(document);
+
+        // Observe React mounts and updates
         try {
           var observer = new MutationObserver(function(){
+            ensureFooterNote();
+            ensureDesktopNavButton();
+            // Mobile menu: insert disabled button and wire Resume when menu appears
             document.querySelectorAll('div.px-2.pt-2.pb-3.space-y-1').forEach(function(menu){
               if (!menu.querySelector('[data-cyber-bandit]')){
                 var mb = document.createElement('button');
@@ -148,14 +160,10 @@
               }
               wireResume(menu);
             });
+            wireResume(document);
           });
           observer.observe(document.body, { childList: true, subtree: true });
-
-          // Initial wire in case menu is already open
-          document.querySelectorAll('div.px-2.pt-2.pb-3.space-y-1').forEach(function(menu){
-            wireResume(menu);
-          });
-        } catch (e) { /* noop */ }
+        } catch (_) {}
       });
     </script>
   </body>
