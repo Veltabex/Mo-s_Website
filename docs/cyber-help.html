@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Cyber help and resources for UK businesses" />
+    <title>Cyber Help | Mo</title>
+    <link rel="canonical" href="https://veltabex.github.io/Mo-s_Website/cyber-help.html" />
+    <base href="/Mo-s_Website/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root { color-scheme: dark; }
+      body { font-family: 'Poppins', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+    </style>
+  </head>
+  <body class="h-full bg-slate-900 text-slate-100">
+    <!-- Header / Navbar -->
+    <header class="border-b border-slate-800/60 bg-slate-900/80 backdrop-blur supports-[backdrop-filter]:bg-slate-900/60 sticky top-0 z-40">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <a href="/Mo-s_Website/" class="text-slate-200 font-semibold tracking-tight hover:text-white">Mo | Cybersecurity Portfolio</a>
+        <nav class="flex items-center gap-6">
+          <a href="/Mo-s_Website/" class="text-slate-300 hover:text-white">Home</a>
+          <a href="cyber-help.html" class="text-white font-semibold">Cyber Bandit</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-10">
+      <section class="mb-10">
+        <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Cyber Help & Resources for UK Businesses</h1>
+        <p class="mt-3 text-slate-300">Actionable links, guidance and the latest UK cyber-attack headlines in one place.</p>
+      </section>
+
+      <!-- Latest News -->
+      <section class="mb-12">
+        <h2 class="text-xl font-semibold text-slate-100">Latest UK cyber attack headlines</h2>
+        <p class="text-slate-400 text-sm mb-4">Pulled live from public news sources. Headlines open in a new tab.</p>
+        <ul id="news-list" class="grid sm:grid-cols-2 gap-4">
+          <li class="p-4 rounded-lg bg-slate-800/60 border border-slate-800">Loading latest headlines…</li>
+        </ul>
+        <script>
+          (function(){
+            var list = document.getElementById('news-list');
+            var url = 'https://content.guardianapis.com/search?q=' + encodeURIComponent('UK cyber attack') + '&order-by=newest&page-size=6&api-key=test';
+            fetch(url).then(function(r){ return r.json(); }).then(function(data){
+              var results = (data && data.response && data.response.results) || [];
+              list.innerHTML = '';
+              if (!results.length) {
+                list.innerHTML = '<li class="p-4 rounded-lg bg-slate-800/60 border border-slate-800">No headlines found right now. Please try again later.</li>';
+                return;
+              }
+              results.forEach(function(item){
+                var li = document.createElement('li');
+                li.className = 'p-4 rounded-lg bg-slate-800/60 border border-slate-800 hover:border-slate-700 transition-colors';
+                var a = document.createElement('a');
+                a.href = item.webUrl;
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
+                a.className = 'block';
+                var title = document.createElement('h3');
+                title.className = 'font-semibold text-slate-100';
+                title.textContent = item.webTitle;
+                var meta = document.createElement('div');
+                meta.className = 'text-xs text-slate-400 mt-1';
+                var d = new Date(item.webPublicationDate);
+                meta.textContent = d.toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' });
+                a.appendChild(title);
+                a.appendChild(meta);
+                li.appendChild(a);
+                list.appendChild(li);
+              });
+            }).catch(function(){
+              list.innerHTML = '<li class="p-4 rounded-lg bg-slate-800/60 border border-slate-800">Could not load headlines right now.</li>';
+            });
+          })();
+        </script>
+      </section>
+
+      <!-- Curated resources -->
+      <section class="mb-12">
+        <h2 class="text-xl font-semibold text-slate-100">Curated UK cybersecurity resources</h2>
+        <div class="mt-4 grid md:grid-cols-2 gap-4">
+          <a class="group p-4 rounded-lg bg-slate-800/60 border border-slate-800 hover:border-slate-700 transition-colors" href="https://scanyourorganisation.ncsc.gov.uk/" target="_blank" rel="noopener noreferrer">
+            <h3 class="font-semibold text-slate-100">NCSC – Scan Your Organisation</h3>
+            <p class="text-slate-400 text-sm mt-1">Check your domain for vulnerabilities and misconfigurations.</p>
+          </a>
+          <a class="group p-4 rounded-lg bg-slate-800/60 border border-slate-800 hover:border-slate-700 transition-colors" href="https://report.ncsc.gov.uk/" target="_blank" rel="noopener noreferrer">
+            <h3 class="font-semibold text-slate-100">Report a cyber incident (NCSC)</h3>
+            <p class="text-slate-400 text-sm mt-1">Report significant cyber incidents to the UK’s National Cyber Security Centre.</p>
+          </a>
+          <a class="group p-4 rounded-lg bg-slate-800/60 border border-slate-800 hover:border-slate-700 transition-colors" href="https://www.thecyberhelpline.com/" target="_blank" rel="noopener noreferrer">
+            <h3 class="font-semibold text-slate-100">The Cyber Helpline</h3>
+            <p class="text-slate-400 text-sm mt-1">Free, confidential advice for individuals and small businesses.</p>
+          </a>
+          <a class="group p-4 rounded-lg bg-slate-800/60 border border-slate-800 hover:border-slate-700 transition-colors" href="https://www.gov.uk/guidance/cyber-security-support-for-businesses" target="_blank" rel="noopener noreferrer">
+            <h3 class="font-semibold text-slate-100">UK Government Cyber Resilience Hub</h3>
+            <p class="text-slate-400 text-sm mt-1">Official guidance and support for organisations.</p>
+          </a>
+          <a class="group p-4 rounded-lg bg-slate-800/60 border border-slate-800 hover:border-slate-700 transition-colors" href="https://ukc3.co.uk/" target="_blank" rel="noopener noreferrer">
+            <h3 class="font-semibold text-slate-100">UKC3 – UK Cyber Cluster Collaboration</h3>
+            <p class="text-slate-400 text-sm mt-1">Connect with regional cyber clusters, including SWCSC.</p>
+          </a>
+          <a class="group p-4 rounded-lg bg-slate-800/60 border border-slate-800 hover:border-slate-700 transition-colors" href="https://www.swcsc.org.uk/" target="_blank" rel="noopener noreferrer">
+            <h3 class="font-semibold text-slate-100">South West Cyber Security Cluster (SWCSC)</h3>
+            <p class="text-slate-400 text-sm mt-1">Community and events for the South West cyber ecosystem.</p>
+          </a>
+          <a class="group p-4 rounded-lg bg-slate-800/60 border border-slate-800 hover:border-slate-700 transition-colors md:col-span-2" href="https://www.ncsc.gov.uk/cyberessentials/overview" target="_blank" rel="noopener noreferrer">
+            <h3 class="font-semibold text-slate-100">Cyber Essentials certification</h3>
+            <p class="text-slate-400 text-sm mt-1">Government-backed scheme to help you protect against common cyber attacks.</p>
+          </a>
+        </div>
+        <p class="text-slate-400 text-sm mt-4">Note: This is a non‑exhaustive list. If you suspect a breach, seek professional help immediately and preserve evidence.</p>
+      </section>
+
+      <!-- Contact / Footer prompt -->
+      <section class="border-t border-slate-800 pt-6">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <h3 class="text-lg font-semibold text-slate-100">Need support or regular updates?</h3>
+          <div class="flex gap-3">
+            <a href="/Mo-s_Website/" class="px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-500 text-white font-semibold">Back to homepage</a>
+            <a href="https://www.ncsc.gov.uk/information/email-updates" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-md bg-slate-800 border border-slate-700 text-slate-200 hover:bg-slate-700">Subscribe to NCSC updates</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="mt-12 py-6 text-center text-sm text-slate-500">© <span id="year"></span> Mo. All rights reserved.</footer>
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
