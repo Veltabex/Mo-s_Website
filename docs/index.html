@@ -220,7 +220,7 @@
           bar.style.flexWrap = 'wrap';
           bar.style.alignItems = 'flex-start';
           bar.style.justifyContent = 'center';
-          bar.style.gap = '16px 28px';
+          bar.style.gap = '20px 32px';
           bar.style.width = '100%';
           bar.style.textAlign = 'center';
 
@@ -240,24 +240,24 @@
             cell.style.flexDirection = 'column';
             cell.style.alignItems = 'center';
             cell.style.justifyContent = 'flex-start';
-            cell.style.gap = '8px';
+            cell.style.gap = '10px';
 
             var box = document.createElement('div');
             box.style.display = 'flex';
             box.style.alignItems = 'center';
             box.style.justifyContent = 'center';
-            box.style.width = '72px';
-            box.style.height = '72px';
+            box.style.width = '96px';
+            box.style.height = '96px';
             box.style.borderRadius = '12px';
-            box.style.background = 'white';
+            box.style.background = 'transparent';
             box.style.overflow = 'hidden';
 
             var img = document.createElement('img');
             img.src = 'images/collaborators/' + item.file;
             img.alt = item.title;
             img.title = item.title;
-            img.style.maxWidth = '90%';
-            img.style.maxHeight = '90%';
+            img.style.maxWidth = '92%';
+            img.style.maxHeight = '92%';
             img.style.objectFit = 'contain';
             box.appendChild(img);
             cell.appendChild(box);
@@ -265,10 +265,10 @@
             var caption = document.createElement('span');
             caption.textContent = item.title;
             caption.style.fontFamily = fontFamily;
-            caption.style.fontSize = '13px';
+            caption.style.fontSize = '14px';
             caption.style.color = 'rgb(203 213 225)';
-            caption.style.lineHeight = '1.15';
-            caption.style.maxWidth = '120px';
+            caption.style.lineHeight = '1.2';
+            caption.style.maxWidth = '140px';
             caption.style.wordBreak = 'break-word';
             cell.appendChild(caption);
 
