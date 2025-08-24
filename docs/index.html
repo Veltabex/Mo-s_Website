@@ -166,5 +166,27 @@
         } catch (_) {}
       });
     </script>
+    <script>
+      // Ensure hero image is swapped to local asset even after React updates
+      window.addEventListener('DOMContentLoaded', function(){
+        var localHero = 'images/1755617868930.jpeg';
+        function ensureHeroImage(){
+          document.querySelectorAll('img[alt="Cybersecurity Professional"]').forEach(function(img){
+            if (!img.src.includes('/images/1755617868930.jpeg')){
+              img.src = localHero;
+              img.loading = 'eager';
+              img.decode?.().catch(function(){});
+            }
+          });
+        }
+        // Initial
+        ensureHeroImage();
+        // Keep enforcing on mutations (React re-renders)
+        try {
+          var heroObs = new MutationObserver(function(){ ensureHeroImage(); });
+          heroObs.observe(document.body, { childList: true, subtree: true });
+        } catch (_) {}
+      });
+    </script>
   </body>
 </html>
