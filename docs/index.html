@@ -35,6 +35,43 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
   </head>
   <body>
+    <script>
+      // Under construction banner (yellow/black) pinned above navbar
+      (function(){
+        function adjustOffset(){
+          var b = document.getElementById('uc-banner');
+          if (b) { document.body.style.paddingTop = b.offsetHeight + 'px'; }
+        }
+        function addBanner(){
+          if (document.getElementById('uc-banner')) return;
+          var b = document.createElement('div');
+          b.id = 'uc-banner';
+          b.setAttribute('role','status');
+          b.style.position = 'fixed';
+          b.style.top = '0';
+          b.style.left = '0';
+          b.style.right = '0';
+          b.style.zIndex = '9999';
+          b.style.backgroundColor = '#facc15'; /* yellow */
+          b.style.backgroundImage = 'repeating-linear-gradient(45deg, rgba(0,0,0,.15) 0 12px, rgba(0,0,0,0) 12px 24px)';
+          b.style.color = '#111827'; /* near-black text */
+          b.style.padding = '10px 12px';
+          b.style.textAlign = 'center';
+          b.style.fontFamily = "'Poppins', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial";
+          b.style.fontWeight = '700';
+          b.style.letterSpacing = '.02em';
+          b.textContent = '🚧 Under construction — updates in progress';
+          document.body.insertBefore(b, document.body.firstChild);
+          adjustOffset();
+          window.addEventListener('resize', adjustOffset);
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', addBanner);
+        } else {
+          addBanner();
+        }
+      })();
+    </script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <div id="loading" style="padding:20px;font-family:Arial;text-align:center">
