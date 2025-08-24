@@ -188,5 +188,70 @@
         } catch (_) {}
       });
     </script>
+    <script>
+      // Add a small "Collaboratored with:" strip under the hero image with small icons
+      window.addEventListener('DOMContentLoaded', function(){
+        var collaborators = [
+          { id: '19308506a9d5fb8af5306ea4fe2bca69', title: 'Hack South West' },
+          { id: '9Enbmx2SSWNFtJbpNVSoMV6hof5xMDX00pilgGcY', title: 'Exeter Computer Science Society' }
+        ];
+        var exts = ['.png', '.webp', '.jpg', '.jpeg', '.svg'];
+
+        function createIcon(basePath, title){
+          var img = document.createElement('img');
+          img.alt = title;
+          img.width = 20; img.height = 20;
+          img.style.width = '20px'; img.style.height = '20px';
+          img.className = 'inline-block rounded bg-white';
+          var i = 0;
+          function tryNext(){
+            if (i >= exts.length) { img.style.display = 'none'; return; }
+            img.src = basePath + exts[i++];
+          }
+          img.onerror = tryNext;
+          tryNext();
+          return img;
+        }
+
+        function ensureCollaboratorsBar(){
+          // Find the hero container that holds the hero image
+          var heroImg = document.querySelector('img[alt="Cybersecurity Professional"]');
+          if (!heroImg) return;
+          var container = heroImg.closest('div.relative.w-full');
+          if (!container) {
+            // fallback: take the immediate wrapper with the gradient bg
+            container = heroImg.parentElement;
+          }
+          if (!container || container.querySelector('[data-collaborators-strip]')) return;
+
+          var bar = document.createElement('div');
+          bar.setAttribute('data-collaborators-strip','');
+          bar.className = 'absolute bottom-4 left-4 bg-slate-900/60 text-slate-200 text-xs px-2 py-1 rounded flex items-center space-x-2';
+
+          var label = document.createElement('span');
+          label.textContent = 'Collaboratored with:';
+          bar.appendChild(label);
+
+          collaborators.forEach(function(c){
+            var icon = createIcon('images/collaborators/' + c.id, c.title);
+            icon.title = c.title;
+            bar.appendChild(icon);
+          });
+
+          // Ensure container is relatively positioned for absolute child
+          if (!/\brelative\b/.test(container.className)) {
+            container.className += ' relative';
+          }
+          container.appendChild(bar);
+        }
+
+        // Initial and keep trying on re-renders
+        ensureCollaboratorsBar();
+        try {
+          var collObs = new MutationObserver(function(){ ensureCollaboratorsBar(); });
+          collObs.observe(document.body, { childList: true, subtree: true });
+        } catch (_) {}
+      });
+    </script>
   </body>
 </html>
