@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+# GitHub Pages for: https://veltabex.github.io/Mo-s_Website/
