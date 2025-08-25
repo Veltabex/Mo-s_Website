@@ -40,7 +40,13 @@
       (function(){
         function adjustOffset(){
           var b = document.getElementById('uc-banner');
-          if (b) { document.body.style.paddingTop = b.offsetHeight + 'px'; }
+          var header = document.querySelector('header');
+          if (b && header) {
+            // Offset the sticky header so it sits below the banner
+            header.style.top = b.offsetHeight + 'px';
+            // Ensure header renders above content but below banner
+            header.style.zIndex = '9998';
+          }
         }
         function addBanner(){
           if (document.getElementById('uc-banner')) return;
@@ -62,6 +68,8 @@
           b.style.letterSpacing = '.02em';
           b.textContent = '🚧 Under construction — updates in progress';
           document.body.insertBefore(b, document.body.firstChild);
+          // Remove any previous body padding to avoid double offset
+          document.body.style.paddingTop = '0px';
           adjustOffset();
           window.addEventListener('resize', adjustOffset);
         }
