@@ -38,15 +38,19 @@
     <script>
       // Under construction banner (yellow/black) pinned above navbar
       (function(){
+        var styleEl;
+        function applyHeaderOffset(px){
+          if (!styleEl) {
+            styleEl = document.createElement('style');
+            styleEl.id = 'uc-banner-style';
+            document.head.appendChild(styleEl);
+          }
+          styleEl.textContent = 'header{position: sticky !important; top: '+px+'px !important; z-index: 9998 !important;}';
+        }
         function adjustOffset(){
           var b = document.getElementById('uc-banner');
-          var header = document.querySelector('header');
-          if (b && header) {
-            // Offset the sticky header so it sits below the banner
-            header.style.top = b.offsetHeight + 'px';
-            // Ensure header renders above content but below banner
-            header.style.zIndex = '9998';
-          }
+          if (!b) return;
+          applyHeaderOffset(b.offsetHeight);
         }
         function addBanner(){
           if (document.getElementById('uc-banner')) return;
@@ -71,6 +75,11 @@
           // Remove any previous body padding to avoid double offset
           document.body.style.paddingTop = '0px';
           adjustOffset();
+          // React mounts header later; keep enforcing offset
+          try {
+            var mo = new MutationObserver(adjustOffset);
+            mo.observe(document.body, { childList: true, subtree: true });
+          } catch(_) {}
           window.addEventListener('resize', adjustOffset);
         }
         if (document.readyState === 'loading') {
